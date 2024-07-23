@@ -1,5 +1,6 @@
 const gridElement = document.getElementById('word-search-grid');
-const wordsElement = document.querySelector('.words'); // Target the .words div
+const wordsElement = document.querySelector('.words');
+const pdfPaperElement = document.querySelector('.pdf_paper');
 
 const ws = new WebSocket('ws://localhost:3000');
 
@@ -24,16 +25,68 @@ function renderGrid(grid) {
     }
 }
 
-
 function renderWords(words) {
     wordsElement.innerHTML = ''; // Clear previous content
     words.forEach((word) => {
         const wordElement = document.createElement('span');
-        wordElement.textContent = word;
-        wordElement.style.color = 'black'; // Style each word
-        wordElement.style.marginRight = '15px'; // Space between words
-        wordElement.style.display = 'inline-block'; // Ensure spacing is applied
+        // wordElement.textContent = word;
+        wordElement.innerHTML = `<p class="word-style">${word}</p>`
+        wordElement.style.color = 'black';
+        // wordElement.style.marginRight = '15px'; 
+        wordElement.style.display = 'inline-block'; 
         wordsElement.appendChild(wordElement);
     });
 }
 
+function adjustPdfPaperSize() {
+    // Define A4 dimensions in mm
+    const A4_WIDTH_MM = 210;
+    const A4_HEIGHT_MM = 297;
+
+    // Calculate dimensions based on viewport size
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    // Aspect ratio for A4
+    const aspectRatio = A4_WIDTH_MM / A4_HEIGHT_MM;
+
+    // Adjust dimensions based on viewport size while maintaining aspect ratio
+    if (viewportWidth / viewportHeight > aspectRatio) {
+        pdfPaperElement.style.width = `${(viewportHeight * aspectRatio)}px`;
+        pdfPaperElement.style.height = `${viewportHeight}px`;
+    } else {
+        pdfPaperElement.style.width = `${viewportWidth}px`;
+        pdfPaperElement.style.height = `${(viewportWidth / aspectRatio)}px`;
+    }
+}
+
+document.getElementById('downloadPdf').addEventListener('click', async () => {
+    adjustPdfPaperSize();  // Adjust size before generating PDF
+
+    const element = document.querySelector('.pdf_paper');
+
+    const options = {
+        margin: [0, 0], // Margins around the content
+        filename: 'word-search-puzzle.pdf', // Name of the generated PDF file
+        image: { type: 'jpeg', quality: 0.98 }, // Image quality and type
+        html2canvas: { scale: 4 }, // Scale factor for better quality
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } // PDF format
+    };
+
+    try {
+        // Generate the PDF as a Blob
+        const pdfBlob = await new Promise((resolve, reject) => {
+            html2pdf().from(element).set(options).outputPdf('blob').then(resolve).catch(reject);
+        });
+
+        // Create a Blob URL and open it in a new tab
+        const blobUrl = URL.createObjectURL(pdfBlob);
+        window.open(blobUrl, '_blank');
+    } catch (error) {
+        console.error('Error generating PDF:', error);
+    }
+});
+
+// Call adjustPdfPaperSize on load and resize
+window.addEventListener('load', adjustPdfPaperSize);
+window.addEventListener('resize', adjustPdfPaperSize);

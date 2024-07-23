@@ -6,7 +6,6 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  margin: 20px;
 }
 
 #word-search-grid {
@@ -24,6 +23,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 30px;
+  background-color: ghostwhite;
 }
 
 .container{
@@ -38,6 +38,21 @@ body {
   font-size: 18px;
   font-weight: bold;
   border: 1px solid #ccc;
-  padding: 20px 6px 20px 6px;
+  width: 700px !important;
   border-radius: 5px;
+  background-color: ghostwhite;
 }
+
+.pdf_paper{
+  padding: 0px 50px 50px 50px;
+  width: 700px !important;
+}
+
+h1{
+  margin-bottom: 20px;
+}
+
+.word-style{
+  margin: 20px;
+}
+
