@@ -58,6 +58,7 @@ function adjustPdfPaperSize() {
         pdfPaperElement.style.width = `${viewportWidth}px`;
         pdfPaperElement.style.height = `${(viewportWidth / aspectRatio)}px`;
     }
+  
 }
 
 document.getElementById('downloadPdf').addEventListener('click', async () => {
@@ -90,3 +91,14 @@ document.getElementById('downloadPdf').addEventListener('click', async () => {
 // Call adjustPdfPaperSize on load and resize
 window.addEventListener('load', adjustPdfPaperSize);
 window.addEventListener('resize', adjustPdfPaperSize);
+
+
+
+
+
+
+
+
+
+
+
