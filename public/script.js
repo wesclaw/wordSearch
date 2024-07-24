@@ -38,6 +38,29 @@ function renderWords(words) {
     });
 }
 
+// make lowercase and uppercase on btn click
+
+const lowerCaseOrUpperCaseBtn = document.getElementById('lowerCaseOrUpperCaseBtn')
+
+function changeTextCase(){
+    
+    const cells = document.querySelectorAll('.cell')
+
+    
+
+    cells.forEach((cell)=>{    
+
+        const getCellLetter = cell.textContent;
+        const makeLetterSmall = getCellLetter.toLowerCase();
+        cell.textContent = makeLetterSmall;
+        lowerCaseOrUpperCaseBtn.textContent = 'UPPERCASE'    
+    })
+}
+
+lowerCaseOrUpperCaseBtn.addEventListener('click', changeTextCase)
+
+// 
+
 function adjustPdfPaperSize() {
     // Define A4 dimensions in mm
     const A4_WIDTH_MM = 210;
