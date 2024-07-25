@@ -38,54 +38,45 @@ function renderWords(words) {
     });
 }
 
-// make lowercase and uppercase on btn click
+const lowerCaseOrUpperCaseBtn = document.getElementById('lowerCaseOrUpperCaseBtn');
 
-const lowerCaseOrUpperCaseBtn = document.getElementById('lowerCaseOrUpperCaseBtn')
+function changeTextCase() {
+    const cells = document.querySelectorAll('.cell');
+    const words = document.querySelectorAll('.word-style');
+    let allLowerCase = true;
 
-function changeTextCase(){
-    const cells = document.querySelectorAll('.cell')
-    cells.forEach((cell)=>{    
+    cells.forEach((cell) => {
+        if (cell.textContent !== cell.textContent.toLowerCase()) {
+            allLowerCase = false;
+        }
+    });
 
-        const getCellLetter = cell.textContent;
-        const makeLetterSmall = getCellLetter.toLowerCase();
-        cell.textContent = makeLetterSmall;
-        lowerCaseOrUpperCaseBtn.textContent = 'UPPERCASE'  
-    })
+    words.forEach((word) => {
+        if (word.textContent !== word.textContent.toLowerCase()) {
+            allLowerCase = false;
+        }
+    });
+
+    if (allLowerCase) {
+        cells.forEach((cell) => {
+            cell.textContent = cell.textContent.toUpperCase();
+        });
+        words.forEach((word) => {
+            word.textContent = word.textContent.toUpperCase();
+        });
+        lowerCaseOrUpperCaseBtn.textContent = 'lowercase';
+    } else {
+        cells.forEach((cell) => {
+            cell.textContent = cell.textContent.toLowerCase();
+        });
+        words.forEach((word) => {
+            word.textContent = word.textContent.toLowerCase();
+        });
+        lowerCaseOrUpperCaseBtn.textContent = 'UPPERCASE';
+    }
 }
 
-lowerCaseOrUpperCaseBtn.addEventListener('click', changeTextCase)
-
-
-
-
-// const lowerCaseOrUpperCaseBtn = document.getElementById('lowerCaseOrUpperCaseBtn');
-
-//         function changeTextCase() {
-//             const cells = document.querySelectorAll('.cell');
-//             let allLowerCase = true;
-
-//             // const wordStyle = document.querySelectorAll('.wordStyle')
-
-//             cells.forEach((cell) => {
-//                 if (cell.textContent !== cell.textContent.toLowerCase()) {
-//                     allLowerCase = false;
-//                 }
-//             });
-
-//             cells.forEach((cell) => {
-//                 if (allLowerCase) {
-//                     // Change text to uppercase
-//                     cell.textContent = cell.textContent.toUpperCase();
-//                 } else {
-//                     // Change text to lowercase
-//                     cell.textContent = cell.textContent.toLowerCase();
-//                 }
-//             });
-
-//             lowerCaseOrUpperCaseBtn.textContent = allLowerCase ? 'lowercase' : 'UPPERCASE';
-//         }
-
-//lowerCaseOrUpperCaseBtn.addEventListener('click', changeTextCase);
+lowerCaseOrUpperCaseBtn.addEventListener('click', changeTextCase);
 
 function adjustPdfPaperSize() {
     // Define A4 dimensions in mm
@@ -113,6 +104,10 @@ function adjustPdfPaperSize() {
 document.getElementById('downloadPdf').addEventListener('click', async () => {
     adjustPdfPaperSize();  // Adjust size before generating PDF
 
+    const spinIcon = document.querySelector('.spinIcon')
+    
+    spinIcon.src = '/icons/spin.gif'
+    
     const element = document.querySelector('.pdf_paper');
 
     const options = {
@@ -135,12 +130,17 @@ document.getElementById('downloadPdf').addEventListener('click', async () => {
     } catch (error) {
         console.error('Error generating PDF:', error);
     }
+
+    spinIcon.src = '/icons/print.png'
 });
 
 // Call adjustPdfPaperSize on load and resize
 window.addEventListener('load', adjustPdfPaperSize);
 window.addEventListener('resize', adjustPdfPaperSize);
 
+resetBtn.addEventListener('click', e=>{
+    window.location.reload()
+})
 
 
 

@@ -45,19 +45,9 @@ body {
 }
 
 .pdf_paper{
-  /* padding: 0px 50px 160px 50px;
-  min-width: 700px !important;
-  border: 5px dashed black; */
-  
-
-  
-  /* the left side of the pdf doc is off. why? */
-  
   height: 100% !important;
   margin: 0 auto !important;
   min-width: 705px !important;
-  
-  /*  */
 }
 
 .word-style{
@@ -110,4 +100,13 @@ body {
   width: 30px;
   height: 30px;
   object-fit: contain;
+}
+
+.module-container{
+  position: absolute;
+  top: 0;
+  background-color: rgb(234, 236, 236);
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
 }
