@@ -43,23 +43,49 @@ function renderWords(words) {
 const lowerCaseOrUpperCaseBtn = document.getElementById('lowerCaseOrUpperCaseBtn')
 
 function changeTextCase(){
-    
     const cells = document.querySelectorAll('.cell')
-
-    
-
     cells.forEach((cell)=>{    
 
         const getCellLetter = cell.textContent;
         const makeLetterSmall = getCellLetter.toLowerCase();
         cell.textContent = makeLetterSmall;
-        lowerCaseOrUpperCaseBtn.textContent = 'UPPERCASE'    
+        lowerCaseOrUpperCaseBtn.textContent = 'UPPERCASE'  
     })
 }
 
 lowerCaseOrUpperCaseBtn.addEventListener('click', changeTextCase)
 
-// 
+
+
+
+// const lowerCaseOrUpperCaseBtn = document.getElementById('lowerCaseOrUpperCaseBtn');
+
+//         function changeTextCase() {
+//             const cells = document.querySelectorAll('.cell');
+//             let allLowerCase = true;
+
+//             // const wordStyle = document.querySelectorAll('.wordStyle')
+
+//             cells.forEach((cell) => {
+//                 if (cell.textContent !== cell.textContent.toLowerCase()) {
+//                     allLowerCase = false;
+//                 }
+//             });
+
+//             cells.forEach((cell) => {
+//                 if (allLowerCase) {
+//                     // Change text to uppercase
+//                     cell.textContent = cell.textContent.toUpperCase();
+//                 } else {
+//                     // Change text to lowercase
+//                     cell.textContent = cell.textContent.toLowerCase();
+//                 }
+//             });
+
+//             lowerCaseOrUpperCaseBtn.textContent = allLowerCase ? 'lowercase' : 'UPPERCASE';
+//         }
+
+//lowerCaseOrUpperCaseBtn.addEventListener('click', changeTextCase);
 
 function adjustPdfPaperSize() {
     // Define A4 dimensions in mm
